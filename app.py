@@ -53,7 +53,7 @@ filtered_curriculum = curriculum[(curriculum['Part'] == part) & (curriculum['Sem
 if not filtered_curriculum.empty:
     grades = {}
     for index, row in filtered_curriculum.iterrows():
-        grade = st.text_input(f"Enter grade for {row['Course']} ({row['Units']} units):", key=f"grade_{index}")
+        grade = st.text_input(f"Enter grade for {row['Course']} ({row['Unit']} units):", key=f"grade_{index}")
         if grade:
             grades[row['Course']] = (grade, row['Units'])
 
