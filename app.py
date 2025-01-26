@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load curriculum data from CSV
-@ st.cache_data 
+@st.cache
 def load_curriculum():
     return pd.read_csv('curriculum.csv')
 
@@ -13,29 +13,28 @@ grade_points = {
     'A': 5.0, 'B': 4.0, 'C': 3.0, 'D': 2.0, 'E': 1.0, 'F': 0.0
 }
 
-def grade_to_points(grades):
-    points = []
-    for grade in grades:
-        if grade.strip().isdigit():  # handling numeric grades input
-            grade = int(grade)
-            if grade >= 70:
-                points.append(5.0)
-            elif grade >= 60:
-                points.append(4.0)
-            elif grade >= 50:
-                points.append(3.0)
-            elif grade >= 45:
-                points.append(2.0)
-            elif grade >= 40:
-                points.append(1.0)
-            else:
-                points.append(0.0)
-        else:  # handling letter grades input
-            points.append(grade_points.get(grade.strip().upper(), 0))
-    return points
+# Function to handle both numeric and letter grades input
+def grade_to_points(grade):
+    if grade.isdigit():  # Handle numeric grades input
+        grade = int(grade)
+        if grade >= 70:
+            return 5.0
+        elif grade >= 60:
+            return 4.0
+        elif grade >= 50:
+            return 3.0
+        elif grade >= 45:
+            return 2.0
+        elif grade >= 40:
+            return 1.0
+        else:
+            return 0.0
+    else:  # Handle letter grades input
+        return grade_points.get(grade.upper(), 0)
 
-def calculate_gpa(grades, credits):
-    if not grades or not credits:
+# Function to calculate GPA based on grades and units
+def calculate_gpa(grades, units):
+    if not grades or not units:
         return 0
     total_points = sum(grade * unit for grade, unit in zip(grades, units))
     total_units = sum(units)
@@ -51,21 +50,19 @@ semester = st.selectbox('Select your semester:', curriculum['Semester'].unique()
 filtered_curriculum = curriculum[(curriculum['Part'] == part) & (curriculum['Semester'] == semester)]
 
 if not filtered_curriculum.empty:
-    grades = {}
+    grades = []
+    units = []
     for index, row in filtered_curriculum.iterrows():
-        grade = st.text_input(f"Enter grade for {row['Course']} ({row['Unit']} units):", key=f"grade_{index}")
-        if grade:
-            grades[row['Course']] = (grade, row['Units'])
+        grade_input = st.text_input(f"Enter grade for {row['Course']} ({row['Units']} units):", key=f"grade_{index}")
+        if grade_input:  # Collect only non-empty inputs
+            grade_point = grade_to_points(grade_input)
+            if grade_point is not None:  # Ensure valid grade conversion
+                grades.append(grade_point)
+                units.append(float(row['Units']))
 
     if st.button('Calculate My GPA'):
-        # Extract grades and credits from dictionary
-        grades_input = [grade[0] for grade in grades.values()]
-        units = [float(grade[1]) for grade in grades.values()]
-        # Convert grades to points
-        valid_grades = grade_to_points(grades_input)
-        # Calculate GPA
-        if valid_grades and units:
-            gpa = calculate_gpa(valid_grades, units)
+        if grades and units:
+            gpa = calculate_gpa(grades, units)
             st.success(f'Your GPA is {gpa:.2f}')
         else:
             st.error("Please enter valid grades for at least one course.")
