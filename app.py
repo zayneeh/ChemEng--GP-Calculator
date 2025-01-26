@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load curriculum data from CSV
-@st.cache
+@ st.cache_data 
 def load_curriculum():
     return pd.read_csv('curriculum.csv')
 
