@@ -38,7 +38,7 @@ def calculate_gpa(grades, credits):
     total_credits = sum(credits)
     return total_points / total_credits if total_credits else 0
 
-levels = curriculum['Level'].unique()
+levels = curriculum['Part'].unique()
 semesters = curriculum['Semester'].unique()
 
 st.title('Chemical Engineering GPA Calculator')
