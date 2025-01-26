@@ -53,7 +53,7 @@ if not filtered_curriculum.empty:
     grades = []
     units = []
     for index, row in filtered_curriculum.iterrows():
-        grade_input = st.text_input(f"Enter grade for {row['Course']} ({row['Units']} units):", key=f"grade_{index}")
+        grade_input = st.text_input(f"Enter grade for {row['Course']} ({row['Units']} unit(s)):", key=f"grade_{index}")
         if grade_input:  # Collect only non-empty inputs
             grade_point = grade_to_points(grade_input)
             if grade_point is not None:  # Ensure valid grade conversion
