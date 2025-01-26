@@ -38,15 +38,15 @@ def calculate_gpa(grades, credits):
     total_credits = sum(credits)
     return total_points / total_credits if total_credits else 0
 
-levels = curriculum['Part'].unique()
+parts = curriculum['Part'].unique()
 semesters = curriculum['Semester'].unique()
 
 st.title('Chemical Engineering GPA Calculator')
 
-level = st.selectbox('Select your level:', levels)
+part = st.selectbox('Select your level:', parts)
 semester = st.selectbox('Select your semester:', semesters)
 
-filtered_curriculum = curriculum[(curriculum['Level'] == level) & (curriculum['Semester'] == semester)]
+filtered_curriculum = curriculum[(curriculum['Part'] == part) & (curriculum['Semester'] == semester)]
 
 if not filtered_curriculum.empty:
     for index, row in filtered_curriculum.iterrows():
