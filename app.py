@@ -23,11 +23,11 @@ def calculate_gpa(grades, credits):
 st.title('Chemical Engineering GPA Calculator')
 
 # Select level and semester
-level = st.selectbox('Select your level:', curriculum['Level'].unique())
+part = st.selectbox('Select your level:', curriculum['Part'].unique())
 semester = st.selectbox('Select your semester:', curriculum['Semester'].unique())
 
 # Filter the curriculum based on selected level and semester
-filtered_curriculum = curriculum[(curriculum['Level'] == level) & (curriculum['Semester'] == semester)]
+filtered_curriculum = curriculum[(curriculum['Part'] == part) & (curriculum['Semester'] == semester)]
 
 if not filtered_curriculum.empty:
     grades = {}
