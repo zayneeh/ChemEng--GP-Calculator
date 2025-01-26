@@ -6,7 +6,7 @@ import pandas as pd
 def load_curriculum():
     return pd.read_csv('curriculum.csv')
 
-curriculum = load_curriculum()
+curriculum = load_curriculum(
 
 # Dictionary for converting letter grades to points
 grade_points = {
