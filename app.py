@@ -23,11 +23,11 @@ def calculate_gpa(grades, credits):
 st.title('Chemical Engineering GPA Calculator')
 
 # User selects level and semester
-level = st.selectbox('Select your level:', options=['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'])
+level = st.selectbox('Select your level:', options=['Part 1', 'Part 2', 'Part 3', 'Part 4', 'Part 5'])
 semester = st.selectbox('Select your semester:', options=['Semester 1', 'Semester 2'])
 
 curriculum = load_curriculum()
-courses = curriculum[part][semester]
+courses = curriculum[Part][Semester]
 course_names, course_credits = zip(*courses)
 
 # User selects grade input type
