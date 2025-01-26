@@ -37,9 +37,9 @@ def grade_to_points(grades):
 def calculate_gpa(grades, credits):
     if not grades or not credits:
         return 0
-    total_points = sum(grade * credit for grade, credit in zip(grades, credits))
-    total_credits = sum(credits)
-    return total_points / total_credits if total_credits else 0
+    total_points = sum(grade * unit for grade, unit in zip(grades, units))
+    total_units = sum(units)
+    return total_points / total_units if total_units else 0
 
 st.title('Chemical Engineering GPA Calculator')
 
@@ -53,19 +53,19 @@ filtered_curriculum = curriculum[(curriculum['Part'] == part) & (curriculum['Sem
 if not filtered_curriculum.empty:
     grades = {}
     for index, row in filtered_curriculum.iterrows():
-        grade = st.text_input(f"Enter grade for {row['Course']} ({row['Credits']} credits):", key=f"grade_{index}")
+        grade = st.text_input(f"Enter grade for {row['Course']} ({row['Units']} units):", key=f"grade_{index}")
         if grade:
-            grades[row['Course']] = (grade, row['Credits'])
+            grades[row['Course']] = (grade, row['Units'])
 
     if st.button('Calculate My GPA'):
         # Extract grades and credits from dictionary
         grades_input = [grade[0] for grade in grades.values()]
-        credits = [float(grade[1]) for grade in grades.values()]
+        units = [float(grade[1]) for grade in grades.values()]
         # Convert grades to points
         valid_grades = grade_to_points(grades_input)
         # Calculate GPA
-        if valid_grades and credits:
-            gpa = calculate_gpa(valid_grades, credits)
+        if valid_grades and units:
+            gpa = calculate_gpa(valid_grades, units)
             st.success(f'Your GPA is {gpa:.2f}')
         else:
             st.error("Please enter valid grades for at least one course.")
