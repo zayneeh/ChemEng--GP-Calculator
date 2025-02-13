@@ -1,5 +1,5 @@
 # OAU Chemical Engineering GPA Calculator
-This application is designed specifically for Chemical Engineering students at Obafemi Awolowo University (OAU). It helps students calculate their Grade Point Average (GPA) accurately across different levels of their study since the one on the OAU portal has a limit of 6 courses it portrays on the portal, it often doesn't calculate GPAs well especially for students who offer more than 6 courses.
+This application is designed specifically for Chemical Engineering students at Obafemi Awolowo University (OAU). It helps students calculate their Grade Point Average (GPA) accurately across different levels of their study since the one on the OAU portal often doesn't calculate GPAs well.
 
  ## Features
 - **Custom Curriculum Input**: Tailored for OAU's Chemical Engineering curriculum, accommodating the specific courses and units from Part 1 to Part 5.
